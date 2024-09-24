@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package messaging;
+
+// The messaging service definition.
+service MessagingService {
+  // Broadcasts a message to all clients.
+  rpc BroadcastMessage(BroadcastMessageRequest) returns (BroadcastMessageResponse);
+  
+  // Streams messages from the server.
+  rpc StreamMessages(StreamMessagesRequest) returns (stream StreamMessagesResponse);
+}
+
+// The request message for broadcasting a message.
+message BroadcastMessageRequest {
+  string sender_id = 1;
+  string message_content = 2;
+}
+
+// The response message for broadcasting a message.
+message BroadcastMessageResponse {
+  bool success = 1;
+  string message_id = 2; // A unique identifier for the broadcast message.
+}
+
+// The request message for streaming messages.
+message StreamMessagesRequest {
+  string user_id = 1;
+}
+
+// The response message containing a streamed message.
+message StreamMessagesResponse {
+  string message_id = 1;
+  string sender_id = 2;
+  string message_content = 3;
+  string timestamp = 4;
+}
+
